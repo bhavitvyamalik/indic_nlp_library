@@ -243,11 +243,14 @@ def sentence_split(text,lang,delim_pat='auto'): ## New signature
                 if p1+1 < len(text) and is_latin_or_numeric(text[p1+1]):
                     continue
 
-        end=p1+1
-        s= text[begin:end].strip()
-        if len(s)>0:
+        end = p2
+        if end < len(text) and text[end] in ['"', '”', "'"]:
+            end += 1
+        
+        s = text[begin:end].strip()
+        if len(s) > 0:
             cand_sentences.append(s)
-        begin=p1+1
+        begin = end
 
     s= text[begin:].strip()
     if len(s)>0:
